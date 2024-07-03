@@ -6,6 +6,9 @@ import java.util.List;
 public class ZigZagConversion {
 
     public static String convert(String s, int numRows) {
+        if(numRows == 1){
+            return s;
+        }
         List<StringBuilder> stringBuilderList = new ArrayList<>(numRows);
         for (int i = 0; i < numRows; i++) {
             StringBuilder str = new StringBuilder();
