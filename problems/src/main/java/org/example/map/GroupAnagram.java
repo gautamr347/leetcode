@@ -2,17 +2,12 @@ package org.example.map;
 
 import org.example.string.Anagram;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class GroupAnagram {
 
     public List<List<String>> groupAnagrams(String[] strs) {
-
         List<List<String>> result = new ArrayList<>();
-
         Set<Integer> indexAdded = new HashSet<>();
         for (int i = 0; i < strs.length; i++) {
             List<String> currentResult = new ArrayList<>();
@@ -38,6 +33,26 @@ public class GroupAnagram {
                 }
             }
             result.add(currentResult);
+        }
+        return result;
+    }
+
+    public List<List<String>> groupAnagramsOptimized(String[] strs) {
+        Map<String, List<String>> anagramMap = new HashMap<>();
+        for (String str : strs) {
+            var strArray = str.toCharArray();
+            Arrays.sort(strArray);
+            if (anagramMap.containsKey(new String(strArray))) {
+                anagramMap.get(new String(strArray)).add(str);
+            } else {
+                List<String> tempSet = new ArrayList<>();
+                tempSet.add(str);
+                anagramMap.put(new String(strArray), tempSet);
+            }
+        }
+        List<List<String>> result = new ArrayList<>();
+        for (Map.Entry<String, List<String>> entry : anagramMap.entrySet()) {
+            result.add(entry.getValue());
         }
         return result;
     }
